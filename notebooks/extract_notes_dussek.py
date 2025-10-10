@@ -45,3 +45,21 @@ print("\nIntervalos entre notas consecutivas:")
 print(intervals[:20])
 
 print("✅ Extração concluída!")
+
+import csv
+
+# Garantir que o tamanho de intervals bate com sequence
+intervals_for_csv = [''] + intervals  # o primeiro evento não tem intervalo
+
+csv_file = 'data/processed/dussek3.csv'
+
+with open(csv_file, mode='w', newline='') as f:
+    writer = csv.writer(f)
+    # Cabeçalho
+    writer.writerow(['type', 'name', 'duration', 'interval'])
+    
+    # Cada linha do CSV
+    for elem, iv in zip(sequence, intervals_for_csv):
+        writer.writerow([elem['type'], elem['name'], elem['duration'], iv])
+
+print(f"✅ CSV salvo em: {csv_file}")
